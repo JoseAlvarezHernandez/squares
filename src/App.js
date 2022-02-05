@@ -1,25 +1,24 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
+
 import './App.css';
+import Square from  './square'
 
-function App() {
+export default function App() {
+  const [ squares ] = useState(new Array(400).fill(null));
+  const [selected, setSelected] = useState();
+
+  function onClick(index) {
+    setSelected(index);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      {
+        squares.map(( _square, index) => {
+          return <Square onClick={() => onClick(index)} isRed={index === selected} isGreen={index === (selected + 1)} key={index} />;
+        })
+      }
     </div>
-  );
+  )
+  
 }
-
-export default App;
